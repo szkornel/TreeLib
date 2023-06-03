@@ -8,6 +8,9 @@ namespace TreeLib
         /// <summary>Elemszám</summary>
         public int Count { get; private set; }
 
+        /// <summary>Legkisebb elemhez tartozó adat</summary>
+        public T Min { get { return MinR(this).Data; } }
+
         /// <summary>Szintek száma</summary>
         public int Depth { get { return GetTreeDepth(this); } }
 
@@ -131,6 +134,14 @@ namespace TreeLib
             root.Left = Balance(data, start, mid - 1);
             root.Right = Balance(data, mid + 1, end);
             return root;
+        }
+
+        /// <summary>Legkisebb elem meghatározása</summary>
+        /// <param name="parent">Gyökérelem</param>
+        /// <returns>Visszaadja a legkisebb elemet</returns>
+        private Element<T> MinR(Element<T> parent)
+        {
+            return parent.Left == null ? parent : MinR(parent.Left);
         }
 
         /// <summary>Fa mélységének meghatározása</summary>
