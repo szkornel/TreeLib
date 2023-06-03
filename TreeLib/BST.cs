@@ -70,6 +70,58 @@ namespace TreeLib
             }
         }
 
+        /// <summary>Elem törlése</summary>
+        /// <param name="data">Törlendő elemhez tartozó adat</param>
+        public void Delete(T data)
+        {
+            Delete(this, data);
+        }
+
+        /// <summary>Elem törlése</summary>
+        /// <param name="parent">Gyökérelem</param>
+        /// <param name="data">Törlendő elemhez tartozó adat</param>
+        private Element<T> Delete(Element<T> parent, T data)
+        {
+            if (parent == null) // a törlendő elem nem található
+            {
+                return parent;
+            }
+
+            int compare = data.CompareTo(parent.Data);
+
+            if (compare < 0) // törlendő elem keresése a bal oldalon
+            {
+                parent.Left = Delete(parent.Left, data);
+            }
+            else if (compare > 0) // törlendő elem keresése a jobb oldalon
+            {
+                parent.Right = Delete(parent.Right, data);
+            }
+            else // megtaláltuk a törlendő elemet
+            {
+                if (parent.Left == null && parent.Right == null) // nincs gyerek, szülő null-ra állítása
+                {
+                    parent = null;
+                }
+                else if (parent.Left == null) // 1 gyerek van (jobb oldalon), szülő-gyerek felcserélése
+                {
+                    parent = parent.Right;
+                }
+                else if (parent.Right == null) // 1 gyerek van (bal oldalon), szülő-gyerek felcserélése
+                {
+                    parent = parent.Left;
+                }
+                else // 2 gyerek van
+                {
+                    Element<T> successor = MinR(parent.Right);
+                    parent.Data = successor.Data;
+                    parent.Right = Delete(parent.Right, successor.Data);
+                }
+            }
+
+            return parent;
+        }
+
         /// <summary>Fa elemeinek kiírása sorrendben</summary>
         public void TraverseInOrder()
         {
