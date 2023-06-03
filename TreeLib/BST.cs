@@ -1,7 +1,4 @@
-﻿using System;
-using System.Collections.Generic;
-
-namespace TreeLib
+﻿namespace TreeLib
 {
     public class BST<T> : Element<T> where T : IComparable<T>
     {
