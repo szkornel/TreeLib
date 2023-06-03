@@ -141,6 +141,38 @@ namespace TreeLib
             return parent;
         }
 
+        /// <summary>Szintenkénti kiírás</summary>
+        public void PrintAllLevels()
+        {
+            for (int i = 1; i <= Depth; i++)
+            {
+                Console.Write($"{i}. szint: ");
+                PrintLevel(this, i);
+                Console.WriteLine();
+            }
+        }
+
+        /// <summary>Adott szint elemeinek kiírása</summary>
+        /// <param name="parent">Gyökérelem</param>
+        /// <param name="level">Kiírandó szint sorszáma</param>
+        private void PrintLevel(Element<T> parent, int level)
+        {
+            if (parent == null)
+            {
+                return;
+            }
+
+            if (level == 1)
+            {
+                Console.Write($"'{parent}' ");
+            }
+            else if (level > 1)
+            {
+                PrintLevel(parent.Left, level - 1);
+                PrintLevel(parent.Right, level - 1);
+            }
+        }
+
         /// <summary>Fa kiegyenlítése</summary>
         public void Balance()
         {
