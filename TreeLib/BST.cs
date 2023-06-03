@@ -99,6 +99,48 @@ namespace TreeLib
             TraverseInOrder(parent.Right, data);
         }
 
+        /// <summary>Tartalmaz a fa az adott adattal ellátott elemet?</summary>
+        /// <param name="data">Keresett adat</param>
+        /// <returns>true: tartalmaz, false: nem tartalmaz</returns>
+        public bool Contains(T data)
+        {
+            return Find(data) != null;
+        }
+
+        /// <summary>Adott adattal ellátott elem megkeresése</summary>
+        /// <param name="data">Keresett adat</param>
+        /// <returns>Visszaadja az elemet vagy null-t, ha nem található</returns>
+        public Element<T> Find(T data)
+        {
+            return Find(this, data);
+        }
+
+        /// <summary>Adott adattal ellátott elem megkeresése</summary>
+        /// <param name="parent">Gyökérelem</param>
+        /// <param name="data">Keresett adat</param>
+        /// <returns>Visszaadja az elemet vagy null-t, ha nem található</returns>
+        private Element<T> Find(Element<T> parent, T data)
+        {
+            if (parent == null)
+            {
+                return null;
+            }
+
+            int compare = data.CompareTo(parent.Data);
+
+            if (compare < 0)
+            {
+                return Find(parent.Left, data);
+            }
+
+            if (compare > 0)
+            {
+                return Find(parent.Right, data);
+            }
+
+            return parent;
+        }
+
         /// <summary>Fa kiegyenlítése</summary>
         public void Balance()
         {
