@@ -14,6 +14,9 @@ namespace TreeLib
         /// <summary>Legnagyobb elemhez tartozó adat</summary>
         public T Max { get { return MaxR(this).Data; } }
 
+        /// <summary>Kiegyenlített a fa?</summary>
+        public bool IsBalanced { get { return IsBalancedR(this); } }
+
         /// <summary>Szintek száma</summary>
         public int Depth { get { return GetTreeDepth(this); } }
 
@@ -153,6 +156,27 @@ namespace TreeLib
         private Element<T> MaxR(Element<T> parent)
         {
             return parent.Right == null ? parent : MaxR(parent.Right);
+        }
+
+        /// <summary>Kiegyenlített a fa?</summary>
+        /// <param name="parent">Gyökérelem</param>
+        /// <returns>true: kiegyenlített, false: nem kiegyenlített</returns>
+        private bool IsBalancedR(Element<T> parent)
+        {
+            if (parent == null)
+            {
+                return true;
+            }
+
+            int leftDepth = GetTreeDepth(parent.Left);
+            int rightDepth = GetTreeDepth(parent.Right);
+
+            if (Math.Abs(leftDepth - rightDepth) <= 1 && IsBalancedR(parent.Left) && IsBalancedR(parent.Right))
+            {
+                return true;
+            }
+
+            return false;
         }
 
         /// <summary>Fa mélységének meghatározása</summary>
