@@ -11,6 +11,9 @@ namespace TreeLib
         /// <summary>Legkisebb elemhez tartozó adat</summary>
         public T Min { get { return MinR(this).Data; } }
 
+        /// <summary>Legnagyobb elemhez tartozó adat</summary>
+        public T Max { get { return MaxR(this).Data; } }
+
         /// <summary>Szintek száma</summary>
         public int Depth { get { return GetTreeDepth(this); } }
 
@@ -142,6 +145,14 @@ namespace TreeLib
         private Element<T> MinR(Element<T> parent)
         {
             return parent.Left == null ? parent : MinR(parent.Left);
+        }
+
+        /// <summary>Legnagyobb elem meghatározása</summary>
+        /// <param name="parent">Gyökérelem</param>
+        /// <returns>Visszaadja a legnagyobb elemet</returns>
+        private Element<T> MaxR(Element<T> parent)
+        {
+            return parent.Right == null ? parent : MaxR(parent.Right);
         }
 
         /// <summary>Fa mélységének meghatározása</summary>
