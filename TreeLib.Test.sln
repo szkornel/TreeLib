@@ -5,6 +5,8 @@ VisualStudioVersion = 17.6.33723.286
 MinimumVisualStudioVersion = 10.0.40219.1
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "TreeLib.Test", "TreeLib.Test\TreeLib.Test.csproj", "{98422E1D-E796-46A3-8D76-1D5E274EF357}"
 EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "TreeLib", "TreeLib\TreeLib.csproj", "{CC436E16-8C06-458E-BA88-60AEE25F651D}"
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
@@ -15,6 +17,10 @@ Global
 		{98422E1D-E796-46A3-8D76-1D5E274EF357}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{98422E1D-E796-46A3-8D76-1D5E274EF357}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{98422E1D-E796-46A3-8D76-1D5E274EF357}.Release|Any CPU.Build.0 = Release|Any CPU
+		{CC436E16-8C06-458E-BA88-60AEE25F651D}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{CC436E16-8C06-458E-BA88-60AEE25F651D}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{CC436E16-8C06-458E-BA88-60AEE25F651D}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{CC436E16-8C06-458E-BA88-60AEE25F651D}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
