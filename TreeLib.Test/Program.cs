@@ -1,9 +1,9 @@
 ﻿using TreeLib;
 
-BST<int> BST = new BST<int>();
+BST<int> BST = new(18);
 
 // Insert:
-foreach (int element in new int[7] { 18, 20, 30, 40, 48, 50, 53 })
+foreach (int element in new int[6] { 20, 30, 40, 48, 50, 53 })
 {
     BST.Insert(element);
 }

@@ -17,8 +17,6 @@
         /// <summary>Szintek száma</summary>
         public int Depth { get { return GetTreeDepth(this); } }
 
-        public BST() { }
-
         public BST(T data) : base(data) { Count++; }
 
         /// <summary>Elem beszúrása</summary>
@@ -33,13 +31,6 @@
         /// <param name="newData">Beszúrandó elemhez tartozó adat</param>
         private void Insert(Element<T> parent, T newData)
         {
-            if (parent.Data == null || Count == 0)
-            {
-                parent.Data = newData;
-                Count++;
-                return;
-            }
-
             int compare = newData.CompareTo(parent.Data);
 
             if (compare < 0 && parent.Left == null)
@@ -77,7 +68,7 @@
         /// <summary>Elem törlése</summary>
         /// <param name="parent">Gyökérelem</param>
         /// <param name="data">Törlendő elemhez tartozó adat</param>
-        private Element<T> Delete(Element<T> parent, T data)
+        private Element<T>? Delete(Element<T>? parent, T data)
         {
             if (parent == null) // a törlendő elem nem található
             {
@@ -122,7 +113,7 @@
         /// <summary>Fa elemeinek kiírása sorrendben</summary>
         public void TraverseInOrder()
         {
-            List<T> data = new List<T>();
+            List<T> data = new();
             TraverseInOrder(this, data);
 
             foreach (T d in data)
@@ -136,7 +127,7 @@
         /// <summary>Fa elemeinek listába helyezése sorrendben</summary>
         /// <param name="parent">Gyökérelem</param>
         /// <param name="data">Lista, amibe az elemeket gyűjtse</param>
-        private void TraverseInOrder(Element<T> parent, List<T> data)
+        private void TraverseInOrder(Element<T>? parent, List<T> data)
         {
             if (parent == null)
             {
@@ -159,7 +150,7 @@
         /// <summary>Adott adattal ellátott elem megkeresése</summary>
         /// <param name="data">Keresett adat</param>
         /// <returns>Visszaadja az elemet vagy null-t, ha nem található</returns>
-        public Element<T> Find(T data)
+        public Element<T>? Find(T data)
         {
             return Find(this, data);
         }
@@ -168,7 +159,7 @@
         /// <param name="parent">Gyökérelem</param>
         /// <param name="data">Keresett adat</param>
         /// <returns>Visszaadja az elemet vagy null-t, ha nem található</returns>
-        private Element<T> Find(Element<T> parent, T data)
+        private Element<T>? Find(Element<T>? parent, T data)
         {
             if (parent == null)
             {
@@ -204,7 +195,7 @@
         /// <summary>Adott szint elemeinek kiírása</summary>
         /// <param name="parent">Gyökérelem</param>
         /// <param name="level">Kiírandó szint sorszáma</param>
-        private void PrintLevel(Element<T> parent, int level)
+        private void PrintLevel(Element<T>? parent, int level)
         {
             if (parent == null)
             {
@@ -232,7 +223,7 @@
         /// <param name="parent">Gyökérelem</param>
         private void Balance(Element<T> parent)
         {
-            List<T> list = new List<T>();
+            List<T> list = new();
 
             if (parent == null)
             {
@@ -240,7 +231,7 @@
             }
 
             TraverseInOrder(parent, list);
-            Element<T> newRoot = Balance(list, 0, list.Count - 1);
+            Element<T>? newRoot = Balance(list, 0, list.Count - 1) ?? throw new Exception("Hiba történt a fa kiegyenlítése során!");
             Data = newRoot.Data;
             Left = newRoot.Left;
             Right = newRoot.Right;
@@ -251,7 +242,7 @@
         /// <param name="start">Kezdőpont</param>
         /// <param name="end">Végpont</param>
         /// <returns>Visszaadja a kiegyenlített fa új gyökerét</returns>
-        private Element<T> Balance(List<T> data, int start, int end)
+        private Element<T>? Balance(List<T> data, int start, int end)
         {
             if (start > end)
             {
@@ -259,9 +250,13 @@
             }
 
             int mid = (start + end) / 2;
-            Element<T> root = new Element<T>(data[mid]);
-            root.Left = Balance(data, start, mid - 1);
-            root.Right = Balance(data, mid + 1, end);
+
+            Element<T> root = new(data[mid])
+            {
+                Left = Balance(data, start, mid - 1),
+                Right = Balance(data, mid + 1, end)
+            };
+
             return root;
         }
 
@@ -284,7 +279,7 @@
         /// <summary>Kiegyenlített a fa?</summary>
         /// <param name="parent">Gyökérelem</param>
         /// <returns>true: kiegyenlített, false: nem kiegyenlített</returns>
-        private bool IsBalancedR(Element<T> parent)
+        private bool IsBalancedR(Element<T>? parent)
         {
             if (parent == null)
             {
@@ -305,7 +300,7 @@
         /// <summary>Fa mélységének meghatározása</summary>
         /// <param name="parent">Gyökérelem</param>
         /// <returns>Visszaadja, hogy hány szintből áll a fa</returns>
-        private int GetTreeDepth(Element<T> parent)
+        private int GetTreeDepth(Element<T>? parent)
         {
             return parent == null ? 0 : Math.Max(GetTreeDepth(parent.Left), GetTreeDepth(parent.Right)) + 1;
         }
