@@ -1,5 +1,7 @@
 ﻿using TreeLib;
 
+// BST:
+Console.WriteLine("\n=================\n====== BST ======\n=================\n");
 BST<int> BST = new(18);
 
 // Insert:
@@ -50,4 +52,15 @@ foreach (int data in new int[3] { 40, 18, 48 })
 BST.Balance();
 Console.WriteLine($"\nTörlés és kiegyenlítés után a fa {BST.Depth} szintből áll:");
 BST.PrintAllLevels();
+
+// Huffman:
+Console.WriteLine("\n=================\n==== Huffman ====\n=================\n");
+string input = "Ez egy teszt szöveg, amit kódolni kell.";
+Console.WriteLine($"Kódolni kívánt szöveg: '{input}'\n");
+
+HuffmanTree ht = new(input);
+ht.PrintTables();
+
+Console.WriteLine($"\nKódolt szöveg: {ht.Encoded}");
+Console.WriteLine($"\nDekódolt szöveg: '{ht.Decode()}'");
 Console.ReadKey();
